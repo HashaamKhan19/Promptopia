@@ -2,12 +2,24 @@
 
 import { useState, useEffect } from "react";
 import PromptCard from "./PromptCard";
-import { HoopSpinner, SphereSpinner } from "react-spinners-kit";
+import { SphereSpinner } from "react-spinners-kit";
 
-const PromptCardList = ({ data, handleTagClick }) => {
+const PromptCardList = ({ data, handleTagClick, searchText }) => {
+  const [filteredData, setFilteredData] = useState([]);
+
+  useEffect(() => {
+    setFilteredData(
+      data.filter(
+        (post) =>
+          post?.prompt?.toLowerCase().includes(searchText.toLowerCase()) ||
+          post?.tag?.toLowerCase().includes(searchText.toLowerCase())
+      )
+    );
+  }, [searchText, data]);
+
   return (
     <div className="mt-16 prompt_layout">
-      {data.map((post) => (
+      {filteredData.map((post) => (
         <PromptCard
           key={post?._id}
           post={post}
@@ -60,7 +72,12 @@ const Feed = () => {
           </p>
         </div>
       )}
-      <PromptCardList data={posts} handleTagClick={() => {}} />
+
+      <PromptCardList
+        data={posts}
+        handleTagClick={() => {}}
+        searchText={searchText}
+      />
     </section>
   );
 };
