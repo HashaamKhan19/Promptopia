@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import PromptCard from "./PromptCard";
+import { HoopSpinner, SphereSpinner } from "react-spinners-kit";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -21,11 +22,14 @@ const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState([]);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch("/api/prompt");
       const data = await response.json();
       setPosts(data);
+      setLoading(false);
     };
     fetchPosts();
   }, []);
@@ -43,6 +47,19 @@ const Feed = () => {
         />
       </form>
 
+      {loading && (
+        <div className="flex mt-12">
+          <SphereSpinner size={50} color="#FF5722" />
+        </div>
+      )}
+
+      {!loading && posts.length === 0 && (
+        <div className="flex mt-12">
+          <p className="text-lg font-inter">
+            No prompts available at the moment. Feel free to add one!
+          </p>
+        </div>
+      )}
       <PromptCardList data={posts} handleTagClick={() => {}} />
     </section>
   );

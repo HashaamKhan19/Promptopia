@@ -35,6 +35,18 @@ const EditPrompt = () => {
 
     if (!promptId) return toast.error("Prompt ID not found");
 
+    if (post.prompt.length < 10) {
+      toast.error("Prompt must be at least 10 characters long.");
+      setSubmitting(false);
+      return;
+    }
+
+    if (post.tag.length < 3) {
+      toast.error("Tag must be at least 3 characters long.");
+      setSubmitting(false);
+      return;
+    }
+
     try {
       const response = await fetch(`/api/prompt/${promptId}`, {
         method: "PATCH",
@@ -45,10 +57,12 @@ const EditPrompt = () => {
       });
 
       if (response.ok) {
+        toast.success("Prompt updated successfully!");
         router.push("/");
       }
     } catch (error) {
       console.error(error);
+      toast.error("Error updating prompt");
     } finally {
       setSubmitting(false);
     }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ImpulseSpinner, StageSpinner } from "react-spinners-kit";
 
 const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
   return (
@@ -54,7 +55,13 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             disabled={submitting}
             className="px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white"
           >
-            {submitting ? `${type}...` : type}
+            {submitting ? (
+              <div>
+                <StageSpinner size={20} color="#fff" />
+              </div>
+            ) : (
+              type
+            )}
           </button>
         </div>
       </form>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import { toast } from "react-hot-toast";
 
 const Nav = () => {
   const { data: session } = useSession();
@@ -40,7 +41,17 @@ const Nav = () => {
               Create Post
             </Link>
 
-            <button className="outline_btn" type="button" onClick={signOut}>
+            <button
+              className="outline_btn"
+              type="button"
+              onClick={() => {
+                toast.promise(signOut(), {
+                  loading: "Signing out...",
+                  success: "Signed out successfully!",
+                  error: "Error signing out.",
+                });
+              }}
+            >
               Sign Out
             </button>
 
