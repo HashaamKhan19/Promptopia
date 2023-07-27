@@ -8,7 +8,6 @@ import { toast } from "react-hot-toast";
 const MyProfile = () => {
   const { data: session } = useSession();
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   const router = useRouter();
 
@@ -17,7 +16,6 @@ const MyProfile = () => {
       const response = await fetch(`/api/users/${session?.user?.id}/posts`);
       const data = await response.json();
       setPosts(data);
-      setLoading(false);
     };
     if (session?.user.id) fetchPosts();
   }, []);
@@ -53,7 +51,6 @@ const MyProfile = () => {
       data={posts}
       handleEdit={handleEdit}
       handleDelete={handleDelete}
-      loading={loading}
     />
   );
 };
