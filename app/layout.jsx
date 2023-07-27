@@ -1,6 +1,7 @@
 import Nav from "@/components/Nav";
 import Provider from "@/components/Provider";
 import "@/styles/globals.css";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "Promptopia",
@@ -11,6 +12,7 @@ const RootLayout = ({ children }) => {
   return (
     <html lang="en">
       <body>
+        <Toaster />
         <Provider>
           <div className="main">
             <div className="gradient" />
