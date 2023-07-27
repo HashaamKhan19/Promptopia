@@ -40,6 +40,10 @@ const Feed = () => {
 
   const [loading, setLoading] = useState(true);
 
+  const handleTagClick = (tag) => {
+    setSearchText(tag);
+  };
+
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch("/api/prompt");
@@ -79,7 +83,7 @@ const Feed = () => {
 
       <PromptCardList
         data={posts}
-        handleTagClick={() => {}}
+        handleTagClick={handleTagClick}
         searchText={searchText}
       />
     </section>
