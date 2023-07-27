@@ -12,7 +12,11 @@ const PromptCardList = ({ data, handleTagClick, searchText }) => {
       data.filter(
         (post) =>
           post?.prompt?.toLowerCase().includes(searchText.toLowerCase()) ||
-          post?.tag?.toLowerCase().includes(searchText.toLowerCase())
+          post?.tag?.toLowerCase().includes(searchText.toLowerCase()) ||
+          post?.creator?.username
+            ?.toLowerCase()
+            .includes(searchText.toLowerCase()) ||
+          post?.creator?.email?.toLowerCase().includes(searchText.toLowerCase())
       )
     );
   }, [searchText, data]);
